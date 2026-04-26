@@ -1,0 +1,955 @@
+/* ============================================================
+   AMRIT DHARA — MASTER STYLESHEET
+   style.css
+   
+   HOW TO USE THIS FILE:
+   - All "EDIT HERE" sections are at the TOP of this file
+   - Change a value once → it updates on every page
+   - Sections below those are layout/structure (rarely need editing)
+   ============================================================ */
+
+
+/* ============================================================
+   1. EDIT FONTS HERE
+   ============================================================
+   To change fonts:
+   1. Go to fonts.google.com
+   2. Pick a font, click "Get embed code"
+   3. Replace the @import line below
+   4. Replace the font name in the variables
+
+   Current fonts:
+   - Headings : Playfair Display (elegant serif)
+   - Body text : Jost (clean, readable sans-serif)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+  --font-heading : 'Playfair Display', Georgia, serif;
+  --font-body    : 'Jost', Arial, sans-serif;
+
+  --text-xs   : 0.72rem;   /* tiny labels */
+  --text-sm   : 0.85rem;   /* captions, fine print */
+  --text-base : 0.95rem;   /* body paragraphs */
+  --text-md   : 1.1rem;    /* lead text */
+  --text-lg   : 1.4rem;    /* sub-headings */
+  --text-xl   : 2rem;      /* section headings */
+  --text-2xl  : 2.8rem;    /* page titles */
+  --text-3xl  : 3.6rem;    /* hero headline */
+}
+
+
+/* ============================================================
+   2. EDIT COLORS HERE
+   ============================================================ */
+
+:root {
+  /* Brand colors */
+  --color-gold       : #c9951a;   /* gold accent — used for labels, icons */
+  --color-gold-light : #f2c84b;   /* lighter gold — used in dark sections */
+  --color-olive      : #4a5c1e;   /* main green — buttons, headers */
+  --color-olive-dark : #384714;   /* darker green — hover states */
+
+  /* Backgrounds */
+  --color-cream      : #fdf5e0;   /* main page background */
+  --color-cream-dark : #f0e3c0;   /* slightly darker cream — cards, alt rows */
+  --color-ivory      : #fffaf0;   /* pure white-ish — product cards */
+  --color-dark       : #1a0e00;   /* near-black — dark sections, footer */
+
+  /* Text */
+  --color-text-dark  : #1a0e00;   /* headings */
+  --color-text-mid   : #6b3a1f;   /* subheadings, labels */
+  --color-text-light : #9a6040;   /* body text, descriptions */
+
+  /* Borders */
+  --color-border     : rgba(201, 149, 26, 0.25);
+}
+
+
+/* ============================================================
+   3. EDIT SPACING HERE
+   ============================================================
+   These control padding inside sections and gaps between elements.
+   Increase a value to add more breathing room.
+   ============================================================ */
+
+:root {
+  --section-padding-y : 90px;    /* top/bottom padding for each section */
+  --section-padding-x : 80px;    /* left/right padding for each section */
+  --card-padding      : 24px;    /* padding inside product / info cards */
+  --card-gap          : 24px;    /* gap between cards in a grid */
+  --nav-height        : 70px;    /* height of the top navigation bar */
+}
+
+
+/* ============================================================
+   4. EDIT IMAGE SIZES HERE
+   ============================================================
+   aspect-ratio controls the shape of each image slot.
+   "4/3" = landscape, "1/1" = square, "3/4" = portrait.
+   ============================================================ */
+
+:root {
+  --img-hero-ratio    : 7/5;     /* hero product image shape */
+  --img-card-ratio    : 1/1;     /* product card image shape */
+  --img-story-ratio   : 1/1;     /* story section tall image */
+  --img-wide-ratio   : 1/1;   /* fixed height for full-width image strips */
+}
+
+
+/* ============================================================
+   RESET & BASE — no need to edit below here regularly
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  background-color: var(--color-cream);
+  color: var(--color-text-dark);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--section-padding-x);
+  background: rgba(253, 245, 224, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-brand {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-olive);
+}
+
+.nav-brand span {
+  color: var(--color-gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+}
+
+.nav-links a {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-mid);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-olive);
+}
+
+.nav-cta {
+  display: inline-block;
+  background: var(--color-olive);
+  color: var(--color-cream) !important;
+  padding: 10px 26px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--color-olive-dark);
+}
+
+/* page offset so content isn't hidden behind fixed nav */
+.page-start {
+  padding-top: var(--nav-height);
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-block;
+  padding: 13px 32px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--color-olive);
+  color: var(--color-cream);
+}
+
+.btn-primary:hover {
+  background: var(--color-olive-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-olive);
+  border: 1.5px solid var(--color-olive);
+}
+
+.btn-outline:hover {
+  background: var(--color-olive);
+  color: var(--color-cream);
+}
+
+.btn-gold {
+  background: var(--color-gold);
+  color: #fff;
+}
+
+.btn-gold:hover {
+  background: var(--color-gold-light);
+  color: var(--color-dark);
+}
+
+
+/* ============================================================
+   SECTION WRAPPERS
+   ============================================================ */
+
+.section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+.section-dark {
+  background: var(--color-dark);
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+.section-ivory {
+  background: var(--color-ivory);
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+.section-cream-dark {
+  background: var(--color-cream-dark);
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+
+/* ============================================================
+   SECTION LABELS + HEADINGS (reusable across all pages)
+   ============================================================ */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 16px;
+}
+
+.label::before,
+.label::after {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.label-light {
+  color: var(--color-gold-light);
+}
+
+.label-light::before,
+.label-light::after {
+  background: var(--color-gold-light);
+}
+
+.h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-text-dark);
+}
+
+.h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-dark);
+  margin-bottom: 14px;
+}
+
+.h2-light {
+  color: var(--color-cream);
+}
+
+.h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.lead {
+  font-size: var(--text-md);
+  color: var(--color-text-light);
+  line-height: 1.8;
+  max-width: 540px;
+}
+
+.lead-light {
+  color: rgba(253, 245, 224, 0.65);
+}
+
+em.gold {
+  font-style: italic;
+  color: var(--color-gold);
+}
+
+em.olive {
+  font-style: italic;
+  color: var(--color-olive);
+}
+
+em.gold-light {
+  font-style: italic;
+  color: var(--color-gold-light);
+}
+
+.text-center { text-align: center; }
+.text-center .lead { margin: 0 auto; }
+
+
+/* ============================================================
+   IMAGE SLOTS
+   Wrap your <img> tags in these divs to control shape/size.
+   ============================================================ */
+
+.img-hero {
+  aspect-ratio: var(--img-hero-ratio);
+  overflow: hidden;
+  background: var(--color-cream-dark);
+}
+
+.img-card {
+  aspect-ratio: var(--img-card-ratio);
+  overflow: hidden;
+  background: var(--color-cream-dark);
+}
+
+.img-story {
+  aspect-ratio: var(--img-story-ratio);
+  overflow: hidden;
+  background: var(--color-cream-dark);
+}
+
+.img-wide {
+  height: var(--img-wide-height);
+  overflow: hidden;
+  background: var(--color-cream-dark);
+}
+
+.img-full {
+  /* full-width strip — set height inline if needed */
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-dark);
+}
+
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+
+.trust-bar {
+  background: var(--color-olive);
+  padding: 14px var(--section-padding-x);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 48px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-cream-dark);
+}
+
+
+/* ============================================================
+   PRODUCT CARDS
+   ============================================================ */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--card-gap);
+}
+
+.product-card {
+  background: var(--color-ivory);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(62, 31, 0, 0.1);
+}
+
+.product-card .img-card {
+  position: relative;
+}
+
+.product-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  background: var(--color-olive);
+  color: var(--color-cream);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+
+.product-badge.gold {
+  background: var(--color-gold);
+}
+
+.product-info {
+  padding: var(--card-padding);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 4px;
+}
+
+.product-info .volume {
+  font-size: var(--text-xs);
+  color: var(--color-text-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.product-info .price {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-olive);
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.product-info .btn {
+  width: 100%;
+  text-align: center;
+}
+
+
+/* ============================================================
+   BENEFITS LIST
+   ============================================================ */
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: padding-left 0.2s;
+}
+
+.benefit-item:hover {
+  padding-left: 6px;
+}
+
+.benefit-check {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(201, 149, 26, 0.15);
+  border: 1px solid rgba(201, 149, 26, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold-light);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.benefit-text h4 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-cream);
+  margin-bottom: 2px;
+}
+
+.benefit-text p {
+  font-size: var(--text-sm);
+  color: rgba(253, 245, 224, 0.5);
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   PROCESS STEPS
+   ============================================================ */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.step-num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(201, 149, 26, 0.2);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 50px;
+}
+
+.step-body h4 {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 4px;
+}
+
+.step-body p {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   NUTRITION TABLE
+   ============================================================ */
+
+.nutrition-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 28px;
+}
+
+.nutrition-table caption {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  text-align: left;
+  padding-bottom: 14px;
+  color: var(--color-text-dark);
+}
+
+.nutrition-table th {
+  background: var(--color-olive);
+  color: var(--color-cream);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.nutrition-table td {
+  padding: 10px 14px;
+  font-size: var(--text-sm);
+  color: var(--color-text-dark);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nutrition-table tr:nth-child(even) td {
+  background: rgba(201, 149, 26, 0.05);
+}
+
+.nutrition-table td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--color-olive);
+}
+
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+  margin-top: 56px;
+}
+
+.t-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 32px;
+}
+
+.t-quote {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  color: rgba(201, 149, 26, 0.3);
+  line-height: 0.8;
+  margin-bottom: 14px;
+}
+
+.t-stars {
+  color: var(--color-gold-light);
+  font-size: var(--text-sm);
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.t-text {
+  font-size: var(--text-base);
+  font-style: italic;
+  color: rgba(253, 245, 224, 0.72);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.t-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.t-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-olive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-cream);
+  flex-shrink: 0;
+}
+
+.t-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-cream);
+  display: block;
+}
+
+.t-loc {
+  font-size: var(--text-xs);
+  color: rgba(253, 245, 224, 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+footer {
+  background: #0e0800;
+  padding: 64px var(--section-padding-x) 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 32px;
+}
+
+.footer-brand-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-cream);
+  margin-bottom: 14px;
+}
+
+.footer-brand-name span {
+  color: var(--color-gold);
+}
+
+.footer-desc {
+  font-size: var(--text-sm);
+  color: rgba(253, 245, 224, 0.4);
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+
+.footer-cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(74, 92, 30, 0.3);
+  border: 1px solid rgba(74, 92, 30, 0.5);
+  padding: 7px 14px;
+  font-size: var(--text-xs);
+  color: var(--color-gold-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.footer-col h5 {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 18px;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col ul a {
+  font-size: var(--text-sm);
+  color: rgba(253, 245, 224, 0.4);
+  transition: color 0.2s;
+}
+
+.footer-col ul a:hover {
+  color: var(--color-cream);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-bottom p {
+  font-size: var(--text-xs);
+  color: rgba(253, 245, 224, 0.22);
+}
+
+
+/* ============================================================
+   TWO-COLUMN LAYOUT HELPER
+   ============================================================ */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.two-col.flip > :first-child {
+  order: 2;
+}
+
+.two-col.flip > :last-child {
+  order: 1;
+}
+
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-mid);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  background: var(--color-ivory);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: var(--color-olive);
+}
+
+.form textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+
+/* ============================================================
+   PAGE HERO (for inner pages — smaller than homepage)
+   ============================================================ */
+
+.page-hero {
+  background: var(--color-cream-dark);
+  padding: 70px var(--section-padding-x) 50px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.page-hero .label {
+  margin-bottom: 12px;
+}
+
+.page-hero .h2 {
+  margin-bottom: 12px;
+}
+
+.page-hero .lead {
+  max-width: 560px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  :root {
+    --section-padding-x : 32px;
+    --section-padding-y : 60px;
+    --text-3xl          : 2.4rem;
+    --text-2xl          : 1.9rem;
+  }
+
+  .nav-links { display: none; }
+  .nav { padding: 0 32px; }
+
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+  .two-col.flip > :first-child { order: 0; }
+  .two-col.flip > :last-child  { order: 0; }
+
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .trust-bar { gap: 24px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-padding-x : 20px;
+    --text-3xl          : 2rem;
+  }
+
+  .products-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
